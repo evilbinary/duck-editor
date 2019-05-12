@@ -7,9 +7,6 @@
 
 <img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo4.jpg" width="800px" />
 
-<img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo1.jpg" width="400px" /><img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo3.jpg" width="400px" />
-
-
 
 ## 扩展
 支持可扩展
