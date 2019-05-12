@@ -112,7 +112,8 @@
 (register 'tree.file-manager (lambda (duck)
     (let ((editor (get-var duck 'editor))
           (file-tree (get-var duck 'tree ))
-            (s0 (get-var duck 'tree.scroll ))
+          (s0 (get-var duck 'tree.scroll ))
+          (work-dir (get-var duck 'work.dir ))
           )
         (set! ed editor)
         ;;here
@@ -121,9 +122,13 @@
             (begin 
             (set! file-tree (icon-tree 260.0 200.0 "   scheme-lib"))
             (set-var 'tree file-tree)))
-        (make-file-tree file-tree "../")
+        (if (null? work-dir)
+            (make-file-tree file-tree "../")
+            (make-file-tree file-tree work-dir))
+
         (widget-add s0 file-tree)
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
-        (widget-set-attr editor %text (readlines "http-test.ss") )
-
+        (if (file-exists? "http-test.ss")
+            (widget-set-attr editor %text (readlines "http-test.ss") ))
+            
     )))
