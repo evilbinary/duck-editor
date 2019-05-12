@@ -2,10 +2,10 @@
 鸭子编辑器 [https://github.com/evilbinary/duck-editor](https://github.com/evilbinary/duck-editor)  
 
 ## 效果图
+<img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo4.jpg" width="800px" />
 
 <img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo2.png" width="800px" />
 
-<img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo4.jpg" width="800px" />
 
 
 ## 扩展
