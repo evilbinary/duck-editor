@@ -21,8 +21,8 @@
 ### 扩展开发
 
 ```scheme
-	(import (extensions extension))
-	(register 'theme.dracula (lambda (duck)
+  (import (extensions extension))
+  (register 'theme.dracula (lambda (duck)
     (let ((editor (get-var duck 'editor))
     	;;扩展功能代码块
     ))
