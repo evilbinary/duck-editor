@@ -23,12 +23,12 @@
 (define height 840)
 ;;(cffi-log #t)
 
-(define app-dir "../apps/duck-editor/")
+(define app-dir "../apps/duck-editor")
 
 (define (init-res)
   (set-var 'app.dir app-dir)
-  (set-var 'resources.dir (string-append app-dir "resources/") )
-  (set-var 'extensions.dir (string-append app-dir "extensions/") )
+  (set-var 'resources.dir (path-append app-dir "resources") )
+  (set-var 'extensions.dir (path-append app-dir "extensions") )
 )
   
 (define (init-editor)
@@ -138,11 +138,23 @@
   )
 
 (define (load-conf)
-  (if (file-exists? (string-append app-dir ".duck.ss"))
-    (load (string-append app-dir ".duck.ss")))
+  (if (file-exists? (path-append app-dir ".duck.ss"))
+    (load (path-append app-dir ".duck.ss")))
   (if (file-exists? "~/.duck.ss")
+    (load "~/.duck.ss"))
+  (if (file-exists? "~/.duck")
     (load "~/.duck"))
 )
+
+(define (process-args)
+  (if (> (length (command-line)) 0)
+    (if (file-directory? (list-ref (command-line) 0 ))
+	    (set! app-dir (list-ref (command-line) 0 ) )
+      (set! app-dir (path-parent (list-ref (command-line) 0 )) )
+      ))
+      (printf "app.dir ~a\n" app-dir)
+      (set-var 'work.dir app-dir)
+  )
 
 (define (duck-editor)
   (set! window (window-create width height "鸭子编辑器"))
@@ -150,6 +162,7 @@
   ;;(window-set-fps-pos  0.0  0.0)
   ;;(window-set-wait-mode #f)
   ;;(window-show-fps #t)
+  (process-args)
   ;;load res
   (init-res)
   ;;ui init here

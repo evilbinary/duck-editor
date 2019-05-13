@@ -67,16 +67,16 @@
 	    (widget-get-attr w %text)
 	    )
     (let ((path (widget-get-attrs w 'path)))
-      (if (file-directory? (string-append path  (widget-get-attr w %text)))
+      (if (file-directory? (path-append path  (widget-get-attr w %text)))
 	  (begin
 	    (widget-set-attrs w 'dir #t)
 	    (widget-set-child w '())
-	    (make-file-tree w (string-append path (widget-get-attr w %text)  "/") )
+	    (make-file-tree w (path-append path (widget-get-attr w %text)  "/") )
 	    (widget-layout-update (widget-get-root w))
 	    )
 	  (begin
 	    ;;(printf "ed select ~a\n"  (string-append path  (widget-get-attr w %text)) )
-	    (widget-set-attr ed %text (readlines2 (string-append path  (widget-get-attr w %text)) ) )
+	    (widget-set-attr ed %text (readlines2 (path-append path  (widget-get-attr w %text)) ) )
 	    )
 	  )
       )))
@@ -85,7 +85,7 @@
   (let loop ((files (directory-list path)))
     (if (pair? files)
 	(let ((n (icon-tree  200.0 200.0  (car files) )))
-	  (if (file-directory? (string-append path  (car files)))
+	  (if (file-directory? (path-append path  (car files)))
 	      (widget-set-attrs n 'dir #t))
 	  (widget-set-attrs n 'path path)
 	  (widget-set-events
@@ -104,9 +104,9 @@
 (define resources-dir (get-var 'resources.dir))
 
 (define (init-res)
-  (set! file-icon (load-texture (string-append resources-dir "file-text.png")))
-  (set! dir-icon (load-texture (string-append resources-dir "folder.png")))
-  (set! dir-icon-open (load-texture (string-append resources-dir "folder-open.png")))
+  (set! file-icon (load-texture (path-append resources-dir "file-text.png")))
+  (set! dir-icon (load-texture (path-append resources-dir "folder.png")))
+  (set! dir-icon-open (load-texture (path-append resources-dir "folder-open.png")))
 )
 
 (register 'tree.file-manager (lambda (duck)
@@ -120,15 +120,15 @@
         (init-res)
         (if (null? file-tree )
             (begin 
-            (set! file-tree (icon-tree 260.0 200.0 "   scheme-lib"))
+            (set! file-tree (icon-tree 260.0 200.0  (string-append "   " (path-last work-dir) )))
             (set-var 'tree file-tree)))
         (if (null? work-dir)
             (make-file-tree file-tree "../")
             (make-file-tree file-tree work-dir))
-
         (widget-add s0 file-tree)
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
-        (if (file-exists? "http-test.ss")
-            (widget-set-attr editor %text (readlines "http-test.ss") ))
+        
+        (if (file-exists? (path-append work-dir "duck-editor.ss"))
+            (widget-set-attr editor %text (readlines (path-append work-dir "duck-editor.ss") ) ))
             
     )))

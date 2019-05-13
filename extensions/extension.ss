@@ -13,10 +13,15 @@
     load-extensions
     duck-extensions
     duck-global
+    path-append
    )
   
   (import (scheme) (utils libutil) (cffi cffi) (utils macro) )
 
+  (define-syntax path-append 
+    (syntax-rules ()
+      ((_ p a ...)
+        (string-append p (string (directory-separator)) a ...))))
 
   (define duck-extensions (make-hashtable equal-hash equal?))
   (define duck-global (make-hashtable equal-hash equal?) )
@@ -34,8 +39,8 @@
     (hashtable-ref duck-extensions name '()))
 
   (define (load-extension file)
-    (printf "loading... ~a\n" (string-append (get-var 'extensions.dir) file) )
-    (load (string-append (get-var 'extensions.dir) file))
+    (printf "loading... ~a\n" (path-append (get-var 'extensions.dir) file) )
+    (load (path-append (get-var 'extensions.dir) file))
   ) 
   
   (define (load-extensions x)
