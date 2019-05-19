@@ -20,7 +20,7 @@
 
 (define window '() )
 (define width 1000)
-(define height 840)
+(define height 850)
 ;;(cffi-log #t)
 
 (define app-dir "../apps/duck-editor")
@@ -37,7 +37,7 @@
     (s0 (scroll 200.0 %match-parent ))
     (s1 (scroll %fill-rest %match-parent ))
     (file-tree '() )
-    (editor (edit %match-parent %match-parent "" ) )
+    (editor (edit %match-parent %wrap-content "" ) )
     (about (dialog 240.0 180.0 320.0 200.0 "关于鸭子编辑器"))
     (syn (init-syntax))
 	)
