@@ -1,5 +1,6 @@
 # duck-editor
 鸭子编辑器 [https://github.com/evilbinary/duck-editor](https://github.com/evilbinary/duck-editor)  
+基于scheme开发的，GPU渲染，高可扩展。
 
 ## 效果图
 <img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo4.jpg" width="800px" />
