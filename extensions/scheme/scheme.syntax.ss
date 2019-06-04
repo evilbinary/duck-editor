@@ -16,8 +16,20 @@
         (add-keyword syn "set!")
         (add-keyword syn "def-function")
         (add-keyword syn "def-function-callback")
+        (add-keyword syn "define-syntax")
+        (add-keyword syn "begin")
+
         (add-identify syn "=")
-        
+        (add-identify syn "null?")
+        (add-identify syn "#f")
+        (add-identify syn "#t")
+        (add-identify syn "'()")
+
+
+
+        (add-keyword syn "let")
+        (add-keyword syn "lambda")
+
         (widget-set-attrs editor 'syntax syn)
         (widget-set-attrs editor 'syntax-on #t)
     )))

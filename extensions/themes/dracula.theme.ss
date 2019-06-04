@@ -11,7 +11,7 @@
           (s1 (get-var duck 'editor.scroll ))
           (syn (get-var duck 'syntax )))
         ;;dracula theme
-        (add-color syn 'identity #xff95f067)
+        (add-color syn 'identify #xffffb86c)
         (add-color syn 'number #xffbd93f9)
         (add-color syn 'comment #xff6272a4)
         (add-color syn 'string #xfff1fa8c)
@@ -22,6 +22,6 @@
         (widget-set-attrs s0 'background #x282a36)
         (widget-set-attrs s1 'background #x282a36)
         (widget-set-attrs editor 'font "Roboto-Regular.ttf")
-        (widget-set-attrs editor 'font-size 44.0)
+        (widget-set-attrs editor 'font-size 42.0)
         (widget-set-attrs editor 'font-line-height 1.2)
     )))
