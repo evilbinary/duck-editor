@@ -112,7 +112,9 @@
                 (widget-add d)
                 (widget-layout-update d)
               )
-              (widget-set-attr ed %text (readlines2  file) ))
+              (begin 
+              (set-var 'editor.file file)
+              (widget-set-attr ed %text (readlines2  file) )))
           )
         )
       )))
