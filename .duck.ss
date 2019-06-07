@@ -14,6 +14,9 @@
 ;;配色
 (load-extension "themes/dracula.theme.ss")
 
+;;菜单
+(load-extension "menu-bar/bar.menu.ss")
+
 ;;代码补全
 
 ;;按键
