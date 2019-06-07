@@ -7,6 +7,7 @@
 	 (glfw glfw)
 	 (gui graphic)
 	 (gui duck)
+   (gui draw)
 	 (gui stb)
 	 (gles gles1)
 	 (gui window)
@@ -84,8 +85,7 @@
       (widget-add menu-help menu-about)
 
       ;;set abount
-      (let ((info (edit 300.0 120.0 "scheme-lib 是一个scheme使用的库。目前支持android mac linux windows，其它平台在规划中。官方主页啦啦啦啦gagaga：http://scheme-lib.evilbinary.org/ 
- ;;QQ群：Lisp兴趣小组239401374 啊哈哈"))
+      (let ((info (edit 300.0 120.0 "scheme-lib 是一个scheme使用的库。目前支持android mac linux windows，其它平台在规划中。官方主页啦啦啦啦gagaga：http://scheme-lib.evilbinary.org/ QQ群：Lisp兴趣小组239401374 啊哈哈"))
 	    (close (button 120.0 30.0 "关闭"))
 	    )
 	(widget-add about info)
