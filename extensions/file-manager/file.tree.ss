@@ -61,6 +61,36 @@
     it
     ))
 
+(define (image-view w h src)
+  (let ((img (image w h src))
+	      (file-name src))
+      ;;(widget-set-attrs img 'mode 'center-crop)
+      (if (file-exists? file-name)
+        (begin
+          (widget-set-attrs img 'src file-name)
+          (widget-set-attrs img 'load #f))
+          ;;(window-post-empty-event)
+          )
+      img
+      ))
+
+(define (image-dialog w h src)
+  (let  ((d (dialog 240.0 180.0 (+ w 80.0) (+ h 120.0) src))
+          (close (button 120.0 30.0 "关闭"))
+          (img (image-view w h src)) )
+      ;;(widget-set-margin close 60.0 40.0 40.0 40.0)
+      ;;(widget-set-margin img 60.0 40.0 40.0 40.0)
+      (widget-add d img)
+      (widget-add d close)
+      (widget-set-events
+        close 'click
+        (lambda (w p type data)
+          (widget-set-attr d %visible #f)
+          ))
+    d
+  )
+)
+
 (define tree-item-click
   (lambda (w p type data)
     (printf "click ~a ~a\n" type
@@ -68,17 +98,23 @@
 	    )
     (let ((path (widget-get-attrs w 'path)))
       (if (file-directory? (path-append path  (widget-get-attr w %text)))
-	  (begin
-	    (widget-set-attrs w 'dir #t)
-	    (widget-set-child w '())
-	    (make-file-tree w (path-append path (widget-get-attr w %text)  "/") )
-	    (widget-layout-update (widget-get-root w))
-	    )
-	  (begin
-	    ;;(printf "ed select ~a\n"  (string-append path  (widget-get-attr w %text)) )
-	    (widget-set-attr ed %text (readlines2 (path-append path  (widget-get-attr w %text)) ) )
-	    )
-	  )
+        (begin
+          (widget-set-attrs w 'dir #t)
+          (widget-set-child w '())
+          (make-file-tree w (path-append path (widget-get-attr w %text)  "/") )
+          (widget-layout-update (widget-get-root w))
+          )
+        (let ((file (path-append path  (widget-get-attr w %text)))
+              (ext (path-extension (widget-get-attr w %text))))
+          ;;(printf "ed select ~a\n"  (string-append path  (widget-get-attr w %text)) )
+          (if (member ext '("jpg" "png" "jpeg"))
+              (let ((d (image-dialog 400.0 400.0 file) ))
+                (widget-add d)
+                (widget-layout-update d)
+              )
+              (widget-set-attr ed %text (readlines2  file) ))
+          )
+        )
       )))
 
 (define (make-file-tree tree path)
