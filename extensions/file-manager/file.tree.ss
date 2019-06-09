@@ -27,7 +27,7 @@
 
 (define (readlines file)
  (let ((f (c-fopen file "rb"))
-       (buf (cffi-alloc 1024))
+       (buf (cffi-alloc 1028))
        (buffer "")
        )
    (let loop ((len (c-fread buf 1 1024 f)))
@@ -167,6 +167,6 @@
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
         
         (if (file-exists? (path-append work-dir "duck-editor.ss"))
-            (widget-set-attr editor %text (readlines (path-append work-dir "duck-editor.ss") ) ))
+            (widget-set-attr editor %text (readlines2 (path-append work-dir "duck-editor.ss") ) ))
             
     )))
