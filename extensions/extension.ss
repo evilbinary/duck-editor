@@ -14,6 +14,7 @@
     duck-extensions
     duck-global
     path-append
+    register-var-change
    )
   
   (import (scheme) (utils libutil) (cffi cffi) (utils macro) )
@@ -65,8 +66,34 @@
   (define set-var
    (case-lambda
      [(duck name val)
-      (hashtable-ref duck name val)]
+      (hashtable-ref duck name val)
+      (event-on-change name val)
+      ]
      [(name val)
-     (hashtable-set! duck-global name val )]    
+     (hashtable-set! duck-global name val )
+     (event-on-change name val)
+     ]    
      ))
+  
+  (define (register-var-change name fun)
+    (let ((events (get-var (format "%event-~a-hook" name) ))
+          (event-name (format "%event-~a-hook" name) )
+          )
+      (if (null? events)
+        (set-var event-name (list fun))
+        (set-var event-name (append events (list fun) ) )))
+     ;;(printf "reg events  ~a ~a\n" name (get-var (format "%event-~a-hook" name) ) )
+  )
+
+  (define (event-on-change name val)
+    (let loop ((events (get-var (format "%event-~a-hook" name) )))
+      (if (pair? events)
+        (begin 
+          (if (procedure? (car events))
+            ((car events) name val)
+          )
+          (loop (cdr events))
+        )
+      )
+  ))
 )

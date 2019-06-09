@@ -52,10 +52,10 @@
      (lambda (w p)
        (let ((x (vector-ref w %gx))
 	     (y (vector-ref w %gy)))
-	 (if (null? (widget-get-attrs w 'dir))
-	     (draw-image (+  -20.0 x) (+ y 6.0) 15.0 15.0 file-icon)
-	     (draw-image (+ -20.0 x) (+ y 6.0) 15.0 15.0 dir-icon))
-	 )
+        (if (null? (widget-get-attrs w 'dir))
+            (draw-image (+  -20.0 x) (+ y 6.0) 15.0 15.0 file-icon)
+            (draw-image (+ -20.0 x) (+ y 6.0) 15.0 15.0 dir-icon))
+        )
        ))
     (widget-set-padding it 15.0 20.0 20.0 20.0)
     it
@@ -135,6 +135,16 @@
 	  (loop (cdr files)))
 	))
   )
+
+(define (reload-file-tree t file)
+            (widget-set-child t '())
+            (make-file-tree t file)
+            (widget-layout-update (widget-get-root t))
+            (printf "(path-last file)=~a\n" (path-last file) )
+            (widget-set-attr t %text (string-append "  "  (path-last file) ))
+            (printf "(widget-get-attr w %text)=>~a\n" (widget-get-attr t %text) )
+        )
+
 (define ed -1)
 (define file-icon -1) 
 (define dir-icon -1) 
@@ -158,11 +168,18 @@
         (init-res)
         (if (null? file-tree )
             (begin 
-            (set! file-tree (icon-tree 260.0 200.0  (string-append "   " (path-last work-dir) )))
+            (set! file-tree (icon-tree 260.0 200.0  (string-append "  " (path-last work-dir) )))
             (set-var 'tree file-tree)))
         (if (null? work-dir)
             (make-file-tree file-tree "../")
             (make-file-tree file-tree work-dir))
+        
+        (register-var-change 
+          'work.dir 
+          (lambda (name val)
+            (printf "val  ~a change ~a\n" name val)
+            (reload-file-tree file-tree val)
+        ))
         (widget-add s0 file-tree)
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
         

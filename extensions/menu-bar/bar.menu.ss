@@ -89,7 +89,9 @@
                     (let ((file (string-trim (widget-get-attr input %text) #\newline)))
                             (if (file-directory? file)
                                 (begin
-                                    (reload-file-list file)
+                                    ;;(reload-file-list file)
+                                    (set-var 'work.dir file)
+                                    (widget-set-attr d %visible #f)
                                 )
                                 (if (file-exists? file )
                                     (begin 
