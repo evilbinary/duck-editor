@@ -45,8 +45,7 @@
 	 ) )))
 
 (define (icon-tree w h text)
-  (let ((it (tree w h text))
-	)
+  (let ((it (tree w h text)))
     (widget-add-draw
      it
      (lambda (w p)
@@ -93,9 +92,9 @@
 
 (define tree-item-click
   (lambda (w p type data)
-    (printf "click ~a ~a\n" type
-	    (widget-get-attr w %text)
-	    )
+    ; (printf "click ~a ~a\n" type
+	  ;   (widget-get-attr w %text)
+	  ;   )
     (let ((path (widget-get-attrs w 'path)))
       (if (file-directory? (path-append path  (widget-get-attr w %text)))
         (begin
@@ -113,8 +112,10 @@
                 (widget-layout-update d)
               )
               (begin 
-              (set-var 'editor.file file)
-              (widget-set-attr ed %text (readlines2  file) )))
+                (set-var 'editor.file file)
+                (printf "open select ~a\n" file)
+                (widget-set-attr ed %text (readlines  file) )
+                ))
           )
         )
       )))
@@ -131,6 +132,7 @@
 	   'click
 	   tree-item-click
 	   )
+     (widget-set-attrs n 'color (widget-get-attrs tree 'color ))
 	  (widget-add tree n) 
 	  (loop (cdr files)))
 	))
