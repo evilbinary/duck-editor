@@ -9,6 +9,7 @@
     (let ((editor (get-var duck 'editor))
           (s0 (get-var duck 'tree.scroll ))
           (s1 (get-var duck 'editor.scroll ))
+          (header (get-var duck 'menu ))
           (syn (get-var duck 'syntax )))
         ;;ligth theme
         (add-color syn 'identify #xffffb86c)
@@ -23,10 +24,17 @@
           (lambda (name val)
             (widget-set-attrs val 'color #xff333333)
           ))
+        ;;(widget-set-attr header %visible #f)
 
+        (widget-set-attrs header 'color #xff333333)
+        (widget-set-attrs header 'background #xfafafa)
+        
         (widget-set-attrs editor 'select-color #xffb5d5fc)
         (widget-set-attrs editor 'cursor-color #xff333333)
         (widget-set-attrs editor 'color #xff333333)
+        (widget-set-attrs editor 'show-no 1)
+        (widget-set-attrs editor 'lineno-color #xff6272a4)
+
         (widget-set-attrs s0 'background #xfafafa)
         (widget-set-attrs s1 'background #xffffff)
         (widget-set-attrs s0 'show-scroll #f)
