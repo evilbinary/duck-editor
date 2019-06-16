@@ -92,9 +92,9 @@
 
 (define tree-item-click
   (lambda (w p type data)
-    ; (printf "click ~a ~a\n" type
-	  ;   (widget-get-attr w %text)
-	  ;   )
+    (printf "click ~a ~a\n" type
+	    (widget-get-attr w %text)
+	    )
     (let ((path (widget-get-attrs w 'path)))
       (if (file-directory? (path-append path  (widget-get-attr w %text)))
         (begin
@@ -186,6 +186,6 @@
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
         
         (if (file-exists? (path-append work-dir "duck-editor.ss"))
-            (widget-set-attr editor %text (readlines2 (path-append work-dir "duck-editor.ss") ) ))
+            (widget-set-attr editor %text (readlines (path-append work-dir "duck-editor.ss") ) ))
             
     )))
