@@ -12,8 +12,8 @@
 <img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo2.png" width="800px" />
 
 ## 运行
-   基于[scheme lib](https://github.com/evilbinary/scheme-lib)库运行 
-   进入bin目录，执行source env.sh，然后运行./scheme --script ../apps/duck-editor/duck-editor.ss 就可以运行例子
+   基于[scheme lib](https://github.com/evilbinary/scheme-lib)库运行   
+   进入bin目录，执行source env.sh，然后运行./scheme --script ../apps/duck-editor/duck-editor.ss
 ## 扩展
 支持可扩展
 ### 已有扩展  
