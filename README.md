@@ -21,8 +21,8 @@
 2. dracula 主题
 3. 文件管理
 
-### 扩展开发
-
+### 扩展开发  
+#### 注册扩展  
 ```scheme
   (import (extensions extension))
   (register 'theme.dracula (lambda (duck)
@@ -30,6 +30,14 @@
     	;;扩展功能代码块
     ))
 ```
+
+#### 按键定义处理   
+```scheme
+   (set-key-map '(ctl a) (lambda()
+            (printf "hook key ctl a\n")
+       ))
+```
+
 ## 作者
 
 * evilbinary rootdebug@163.com
