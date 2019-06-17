@@ -83,9 +83,17 @@
           (syn (get-var duck 'syntax )))
        (set-key-map '(ctl a) (lambda()
             (printf "hook key ctl a\n")
+            (printf "line count===>~a\n" (widget-get-attrs editor 'line-count ))
+            (printf "last-row-count=>~a\n" (widget-get-attrs editor 'last-row-count) )
+            (widget-set-attrs editor 'selection 
+                (list 0 0 
+                    (widget-get-attrs editor 'line-count ) 
+                    (widget-get-attrs editor 'last-row-count)))
        ))
        (set-key-map '(ctl c) (lambda()
             (printf "hook key ctl c\n")
+            ;;(printf "get copy ~a\n" (widget-get-attrs editor 'selection) )
+            (set-var 'editor.copy (widget-get-attrs editor 'selection))
        ))
 
        (widget-add-event editor (lambda (w p type data)

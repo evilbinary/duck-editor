@@ -79,6 +79,15 @@
     )
   )
 
+(define (init-event)
+  (register-var-change 
+      'editor.copy 
+      (lambda (name val)
+        (printf "val  ~a change ~a\n" name val)
+        (glfw-set-clipboard-string window val)
+    ))
+)
+
 (define (load-conf)
   (if (file-exists? (path-append app-dir ".duck.ss"))
     (load (path-append app-dir ".duck.ss")))
@@ -109,6 +118,7 @@
   (init-res)
   ;;ui init here
   (init-editor)
+  (init-event)
   ;;load config
   (load-conf)
   ;;load extensitons
