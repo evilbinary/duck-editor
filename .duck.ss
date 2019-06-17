@@ -6,17 +6,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;文件树
-(load-extension "file-manager/file.tree.ss")
+(load-extension "tree/file.tree.ss")
 
 ;;语法高亮
 (load-extension "scheme/scheme.syntax.ss")
 
 ;;配色
 (load-extension "themes/dracula.theme.ss")
+;;(load-extension "themes/light.theme.ss")
 
 ;;菜单
-(load-extension "menu-bar/bar.menu.ss")
-
-;;代码补全
+(load-extension "menu/bar.menu.ss")
 
 ;;按键
+(load-extension "keys/edit.key.ss")
+
+;;代码补全
