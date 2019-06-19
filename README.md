@@ -5,6 +5,8 @@
 ## 特点 
   1. 比vscode快
   2. 比emacs更灵活
+## 加入  
+  鸭编开发小组 群号:590540178
 
 ## 效果图
 <img src="https://raw.githubusercontent.com/evilbinary/duck-editor/master/data/screenshot/demo4.jpg" width="800px" />
