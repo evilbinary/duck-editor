@@ -21,6 +21,7 @@
         (widget-set-attrs editor 'lineno-color #xff6272a4)
         (widget-set-attrs editor 'select-color #xff44475a)
         (widget-set-attrs editor 'cursor-color #xfff8f8f0)
+        (widget-set-attrs s0 'show-scroll #f)
         (widget-set-attrs s0 'background #x282a36)
         (widget-set-attrs s1 'background #x282a36)
         (widget-set-attrs editor 'font "Roboto-Regular.ttf")

@@ -1,0 +1,105 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Copyright 2016-2080 evilbinary.
+;作者:evilbinary on 12/24/16.
+;邮箱:rootdebug@163.com
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(import (extensions extension))
+
+(define (pop-snippets)
+	(let ( (p (view  380.0 430.0  ) )
+			(p1 (button 380.0 30.0 "string[] getGrammarScopes") )
+			(p2 (button 380.0 30.0 "string getLanguageName") )
+			(p3 (button 380.0 30.0 "string getServerName"))
+			(p4 (button 380.0 30.0 "any startServerProcess"))
+			(p5 (button 380.0 30.0 "void preInintialization"))
+			(p6 (button 380.0 30.0 "Promise<any> getSuggestions"))
+			(p7 (button 380.0 30.0 "any requestAndCleanSuggestions"))
+			 )
+		(widget-add p p1)
+		(widget-add p p2)
+		(widget-add p p3)
+		(widget-add p p4)
+		(widget-add p p5)
+		(widget-add p p6)
+		(widget-add p p7)
+
+        (let loop ((child (widget-get-child p)))
+            (if (pair? child)
+                (begin 
+                    (widget-set-attrs (car child) 'text-align 'left)
+                    (widget-set-attrs (car child) 'padding-left 18.0)
+                (loop (cdr child))
+                )))
+        
+        (widget-set-attrs p 'background #x010000ff)
+        (widget-add-event p 
+            (lambda (widget parent type d)
+                (if (= type %event-key)
+                    (if (equal? 'enter  (get-default-key-map (vector-ref d 0)))
+                        (begin
+                            (printf "enter\n")
+                            (widget-clear-status p %status-active)
+                            (widget-set-attr p %visible #f)
+                            (widget-set-status (get-var 'editor) %status-active)
+                            ;;(printf "visible=>~a\n" (widget-get-attr (get-var 'editor) %visible ))
+                            ;;(widget-layout-update (widget-get-root p))
+                        )
+                    )
+                    ;;(printf "key ~a\n" (get-default-key-map (vector-ref d 0)))
+                ))
+         )
+        p
+	)
+)
+
+(define (show-snippets-pos lx ly )
+    (let ((snippets (get-var 'editor.snippets)))
+        (widget-set-xy snippets lx ly)
+        (widget-set-status snippets %status-active)
+        (widget-clear-status (get-var 'editor) %status-active)
+        (widget-set-attr snippets %visible #t)
+        ;;(widget-layout-update (widget-get-root snippets))
+    ))
+
+(define (show-snippets )
+    (let ((snippets (get-var 'editor.snippets)))
+    (widget-set-status snippets %status-active)
+    (widget-clear-status (get-var 'editor) %status-active)
+    (widget-set-attr snippets %visible #t))
+)
+
+(define (set-snippets-pos lx ly )
+    (let ((snippets (get-var 'editor.snippets)))
+        (widget-set-xy snippets lx ly)
+        ;;(widget-layout-update (widget-get-root snippets))
+    )
+)
+
+(register 'snippets.scheme (lambda (duck)
+    (let ((editor (get-var duck 'editor))
+          (syn (get-var duck 'syntax ))
+          (s1 (get-var duck 'editor.scroll ))
+          )
+        (if (null? (get-var 'editor.snippets))
+            (let ((snippets (pop-snippets))) 
+                (widget-set-layout s1 free-layout)
+                (set-var 'editor.snippets snippets)
+                (widget-set-attr snippets %visible #f)
+                (widget-add s1 snippets)
+            ))
+        (widget-add-event s1 
+            (lambda (w p type d)
+            (if (= type %event-key)
+				(let ((xy (widget-get-attrs editor 'cursor-xy ) ))
+                    '()
+                    (set-snippets-pos (list-ref xy 0) (+ 30.0 (list-ref xy 1)))
+                    (if (equal? '/  (get-default-key-map (vector-ref d 0)))
+                        (show-snippets )
+                        )
+                    ;;(printf "xy=~a\n" xy) 
+            ))))
+        ;;(show-snippets-pos 100.0 140.0)
+
+    )))
+
+

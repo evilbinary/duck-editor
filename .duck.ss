@@ -22,3 +22,17 @@
 (load-extension "keys/edit.key.ss")
 
 ;;代码补全
+(load-extension "scheme/scheme.snippets.ss")
+
+
+
+
+
+
+
+
+
+
+
+
+

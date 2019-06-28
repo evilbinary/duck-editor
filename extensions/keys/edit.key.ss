@@ -22,6 +22,8 @@
         '(d 68)
         '(v 86)
         '(x 88)
+        '(enter 257)
+        '(/ 47)
     ))
 
 (define (set-default-key-map key val)
@@ -36,6 +38,7 @@
         (begin 
             ;;(printf "~a ~a ~a\n" (car l) (caar l)  (cadar l))
             (set-default-key-map (caar l) (cadar l))
+            (set-default-key-map  (cadar l) (caar l))
             (loop (cdr l))
         ))))
 

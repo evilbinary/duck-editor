@@ -66,7 +66,7 @@
   (define set-var
    (case-lambda
      [(duck name val)
-      (hashtable-ref duck name val)
+      (hashtable-set! duck name val)
       (event-on-change name val)
       ]
      [(name val)
