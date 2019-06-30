@@ -118,12 +118,12 @@
   (init-res)
   ;;ui init here
   (init-editor)
+  ;;init event
   (init-event)
   ;;load config
   (load-conf)
   ;;load extensitons
   (load-extensions duck-extensions)
-  
   ;;run
   (window-loop window)
   (window-destroy window)

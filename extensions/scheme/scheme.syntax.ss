@@ -9,6 +9,12 @@
     (let ((editor (get-var duck 'editor))
           (syn (get-var duck 'syntax )))
         ;;syntax here
+        (let loop ((keywords (environment-symbols (scheme-environment)) ))
+          (if (pair? keywords)
+            (begin 
+              (add-keyword syn  (symbol->string (car keywords)) )
+              (loop (cdr keywords)))))
+        
         (add-keyword syn "if")
         (add-keyword syn "define")
         (add-keyword syn "import")
@@ -24,11 +30,11 @@
         (add-identify syn "#f")
         (add-identify syn "#t")
         (add-identify syn "'()")
-
-
-
         (add-keyword syn "let")
         (add-keyword syn "lambda")
+
+        
+        
 
         (widget-set-attrs editor 'syntax syn)
         (widget-set-attrs editor 'syntax-on #t)

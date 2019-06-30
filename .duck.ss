@@ -4,6 +4,8 @@
 ;邮箱:rootdebug@163.com
 ;;config file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;duck base
+(load-extension "duck/editor.duck.ss")
 
 ;;文件树
 (load-extension "tree/file.tree.ss")
@@ -22,7 +24,9 @@
 (load-extension "keys/edit.key.ss")
 
 ;;代码补全
+(load-extension "scheme/scheme.complete.ss")
 (load-extension "scheme/scheme.snippets.ss")
+
 
 
 

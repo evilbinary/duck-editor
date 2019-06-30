@@ -4,79 +4,7 @@
 ;邮箱:rootdebug@163.com
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (import (extensions extension))
-
-(define all-key-func (make-hashtable equal-hash equal?))
-(define all-keys-status (make-hashtable equal-hash equal?) )
-(define default-key-map (make-hashtable equal-hash equal?))
-(define default-key-maps 
-    (list
-        '(ctl #x0002)
-        '(shift #x0001)
-        '(alt #x0004)
-        '(super #x0008)
-        '(caps-lock #x0010)
-        '(num-lock #x0020)
-        '(a 65)
-        '(b 66)
-        '(c 67)
-        '(d 68)
-        '(v 86)
-        '(x 88)
-        '(enter 257)
-        '(/ 47)
-    ))
-
-(define (set-default-key-map key val)
-    (hashtable-set! default-key-map key val))
-
-(define (get-default-key-map key)
-    (hashtable-ref default-key-map key '()))
-
-(define (init-key-map)
-    (let loop ((l default-key-maps))
-        (if (pair? l)
-        (begin 
-            ;;(printf "~a ~a ~a\n" (car l) (caar l)  (cadar l))
-            (set-default-key-map (caar l) (cadar l))
-            (set-default-key-map  (cadar l) (caar l))
-            (loop (cdr l))
-        ))))
-
-(define (is-key-press key)
-    (hashtable-ref all-keys-status (get-default-key-map key) '()))
-
-(define (is-multi-key-press keys)
-    (= (length keys) 
-        (length (filter (lambda (x )
-                    (let ((ret (is-key-press x) ))
-                    (if (null? ret)
-                        #f
-                        (> ret 0)
-                     )))
-                keys))))
-
-(define (set-key-map keys fun)
-    (hashtable-set! all-key-func keys fun))
-
-(define (get-key-map keys)
-    (hashtable-ref all-key-func keys '()))
-
-
-(define (process-key-map keys)
-    (if (is-multi-key-press keys )
-        (let ((fun (get-key-map keys )))
-            (fun))
-    ))
-
-(define (process-keys-map)
-    (let loop ((k (vector->list (hashtable-keys all-key-func))))
-        (if (pair? k)
-            (begin 
-                (process-key-map (car k))
-                (loop (cdr k))
-            )
-        )
-    ))
+(import duck.keys)
 
 (register 'keys.edit (lambda (duck)
     (init-key-map)
@@ -97,6 +25,16 @@
             (printf "hook key ctl c\n")
             ;;(printf "get copy ~a\n" (widget-get-attrs editor 'selection) )
             (set-var 'editor.copy (widget-get-attrs editor 'selection))
+            ;(printf "current line text ~a\n" (widget-get-attrs editor 'current-line-text))
+       ))
+       (set-key-map '(cmd c) (lambda()
+            (set-var 'editor.copy (widget-get-attrs editor 'selection))
+       ))
+       (set-key-map '(cmd a) (lambda()
+            (widget-set-attrs editor 'selection 
+                (list 0 0 
+                    (widget-get-attrs editor 'line-count ) 
+                    (widget-get-attrs editor 'last-row-count)))
        ))
 
        (widget-add-event editor (lambda (w p type data)
@@ -105,14 +43,10 @@
                   (key (vector-ref data 0))
                   (scancode (vector-ref data 1))
                   (mods (vector-ref data 3)))
-                ;;(printf "get editor event ~a action=~a key=~a mods=~a\n" type action key mods )
-                ;;(printf "(get-key-map key)=>~a\n" (get-key-map key))
-                (hashtable-set! all-keys-status key action)
-                (hashtable-set! all-keys-status mods action)
-                ;;(printf "is key press ~a\n" (is-key-press 'a ))
-                ;;(printf "is-multi-key-press ~a\n" (is-multi-key-press '(ctl a) ))
+                ;(printf "get editor event ~a action=~a key=~a mods=~a\n" type action key mods )
+                (set-key-status key action)
+                (set-key-status mods action)
                 (process-keys-map)
-                
             ))
        ))
     )))
