@@ -2,9 +2,11 @@
 Duck Editor [https://github.com/evilbinary/duck-editor](https://github.com/evilbinary/duck-editor)    
 A Highly scalable Editor based on `scheme` with GPU rendering.
 
+[中文版说明文档](README.zh_cn.md)
+
 ## Features
   1. Faster than [vscode](https://code.visualstudio.com/)
-  2. More flexible then [emacs](https://www.gnu.org/software/emacs/)
+  2. More flexible than [emacs](https://www.gnu.org/software/emacs/)
 
 ## Contributing
   Duck Editor Development Team `QQ Group Number: 590540178`  
