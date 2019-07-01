@@ -50,3 +50,11 @@ A Highly scalable Editor based on `scheme` with GPU rendering.
 
 * evilbinary rootdebug@163.com
 * Blog http://evilbinary.org
+
+
+## License
+
+Copyright (c) evilbinary All rights reserved.
+
+Licensed under the [GPL](LICENSE.txt) license.
+

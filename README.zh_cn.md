@@ -2,9 +2,12 @@
 鸭子编辑器 [https://github.com/evilbinary/duck-editor](https://github.com/evilbinary/duck-editor)  
 基于scheme开发的，GPU渲染，高可扩展。
 
+[English Document](README.md)
+
 ## 特点 
   1. 比vscode快
-  2. 比emacs更灵活
+  2. 比emacs更灵活  
+
 ## 加入  
   鸭编开发小组 群号:590540178
 
@@ -44,3 +47,11 @@
 
 * evilbinary rootdebug@163.com
 * 个人博客 http://evilbinary.org
+
+## 版权
+
+Copyright (c) evilbinary All rights reserved.
+
+Licensed under the [GPL](LICENSE.txt) license.
+
+
