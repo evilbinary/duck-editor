@@ -126,7 +126,7 @@
                 [(or (fx= col 0)
                     (separator? (string-ref entry (fx1- col))))
                 (begin 
-                    (printf "==>~a\n" (substring entry col cols))
+                    ;;(printf "==>~a\n" (substring entry col cols))
                     (substring entry col cols))]
                 [else (loop (fx1- col))])))
       ]

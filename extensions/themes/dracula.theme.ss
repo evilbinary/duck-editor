@@ -25,6 +25,6 @@
         (widget-set-attrs s0 'background #x282a36)
         (widget-set-attrs s1 'background #x282a36)
         (widget-set-attrs editor 'font "Roboto-Regular.ttf")
-        (widget-set-attrs editor 'font-size 38.0)
+        (widget-set-attrs editor 'font-size 22.0)
         (widget-set-attrs editor 'font-line-height 1.2)
     )))

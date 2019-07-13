@@ -15,10 +15,10 @@
 (define default-key-map (make-hashtable equal-hash equal?))
 (define default-key-maps 
     (list
-        '(ctl #x0002)
-        '(shift #x0001)
-        '(alt #x0004)
-        '(super #x0008)
+        '(ctl 341)
+        '(shift 340)
+        '(alt 342)
+        '(tab 258)
         '(caps-lock #x0010)
         '(num-lock #x0020)
         '(a 65)
@@ -28,6 +28,7 @@
         '(v 86)
         '(x 88)
         '(enter 257)
+        '(backspace 259)
         '(/ 47)
         '(cmd 343)
         '(esc 256)
@@ -61,7 +62,9 @@
                     (let ((ret (is-key-press x) ))
                     (if (null? ret)
                         #f
-                        (> ret 0)
+                        (begin 
+                        ;;(printf ">0 ~a\n" (> ret 0))
+                        (> ret 0))
                      )))
                 keys))))
 
