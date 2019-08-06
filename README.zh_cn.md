@@ -52,6 +52,6 @@
 
 Copyright (c) evilbinary All rights reserved.
 
-Licensed under the [GPL](LICENSE.txt) license.
+Licensed under the [MIT](LICENSE) license.
 
 
