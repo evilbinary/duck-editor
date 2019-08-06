@@ -38,7 +38,14 @@
         (widget-set-attrs s0 'background #xfafafa)
         (widget-set-attrs s1 'background #xffffff)
         (widget-set-attrs s0 'show-scroll #f)
-        (widget-set-attrs editor 'font "Roboto-Regular.ttf")
+        ;;(widget-set-attrs editor 'font "Roboto-Regular.ttf")
+
+        ;;(widget-set-child-attrs file-tree 'color #xff000000)
+        (widget-set-child-attrs header 'color #xffffffff)
+        (widget-set-child-attrs header 'background #xaa333333)
+        (widget-set-attrs header 'background #x33333333)
+        (widget-set-child-attrs header 'hover-background #x33333333)
+
         (widget-set-attrs editor 'font-size 22.0)
         (widget-set-attrs editor 'font-line-height 1.2)
     )))
