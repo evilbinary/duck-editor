@@ -17,12 +17,13 @@
 	 (gui syntax)
 	 (c c-ffi)
    (extensions extension)
-	 (utils libutil) (utils macro) )
+	 (utils libutil) (utils macro) (utils trace))
 
 (define window '() )
 (define width 1000)
 (define height 850)
 ;;(cffi-log #t)
+(stack-trace-exception)
 
 (define app-dir "../apps/duck-editor")
 
@@ -64,15 +65,15 @@
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
       ))
 
+    (widget-set-attr s0 %text "tree scroll")
+    (widget-set-attr s1 %text "edit scroll")
+    (widget-set-attr panel %text "panel")
+    
     (widget-add s1 editor)
 
     ;;(widget-set-layout s1 frame-layout)
     (widget-add panel s0)
     (widget-add panel s1)
-
-    (widget-set-attr s0 %text "s0")
-    (widget-set-attr s1 %text "s1")
-    (widget-set-attr panel %text "panel")
     (widget-add panel)
     (widget-add header)
 

@@ -4,7 +4,7 @@
 ;邮箱:rootdebug@163.com
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (import (extensions extension))
-(import duck.browser duck.tree duck.file)
+(import duck.browser duck.tree duck.file duck.menu)
 
 (register 'menu.bar (lambda (duck)
     (let ((editor (get-var duck 'editor))
@@ -21,10 +21,14 @@
             (menu-setting (pop 60.0 30.0 "设置"))
             (menu-help (pop 60.0 30.0 "帮助"))
             (menu-search (pop 60.0 30.0 "查找"))
-            (menu-open (pop 60.0 30.0 "打开"))
-            (menu-save (pop 60.0 30.0 "保存"))
-            (menu-quit (pop 60.0 30.0 "退出"))
-            (menu-about (pop 60.0 30.0 "关于"))
+            (menu-tool (pop 60.0 30.0 "工具"))
+
+
+            (menu-open (icon-pop 120.0 30.0 "打开" "open.png" "C-o"))
+            (menu-save (icon-pop 120.0 30.0 "保存" "save.png" "C-s"))
+            (menu-quit (icon-pop 120.0 30.0 "退出" "exit.png" "C-q"))
+            (menu-about (icon-pop 120.0 30.0 "关于" "about.png" ""))
+            (menu-manual (icon-pop 120.0 30.0 "文档" "manual.png" ""))
             ;;(file-list (file-browser work-dir) )
             )
             (widget-set-events
@@ -43,7 +47,8 @@
             (widget-add header menu-file)
             (widget-add header menu-edit)
             (widget-add header menu-search)
-            (widget-add header menu-setting)
+            ;;(widget-add header menu-setting)
+            (widget-add header menu-tool)
             (widget-add header menu-help)
             ;;(widget-add header menu-empty)
             ;;(widget-add file-list )
@@ -57,16 +62,55 @@
             (widget-set-attrs menu-edit 'root #t)
             (widget-set-attrs menu-search 'root #t)
             (widget-set-attrs menu-help 'root #t)
+            (widget-set-attrs menu-tool 'root #t)
+            ;;(widget-set-attrs menu-setting 'root #t)
+            
         
             ;;(widget-set-attrs menu-empty 'is-root #t)
 
             (widget-add menu-file menu-open)
             (widget-add menu-file menu-save)
+            ;;preference setting
+            (let ((preference (icon-pop 120.0 30.0 "偏好" "perffernce.png" "C-p")))
+                (widget-add menu-file preference)
+            )
+
+            ;;edit 
+            (let ((undo (icon-pop 120.0 30.0 "撤销" "undo.png" "C-z"))
+                  (redo (icon-pop 120.0 30.0 "重做" "redo.png" "C-S-z"))
+                  (copy (icon-pop 120.0 30.0 "拷贝" "copy.png" "C-c"))
+                  (paste (icon-pop 120.0 30.0 "粘贴" "paste.png" "C-v"))
+                )
+                (widget-add menu-edit undo)
+                (widget-add menu-edit redo)
+                (widget-add menu-edit copy)
+                (widget-add menu-edit paste)
+            )
+
+             ;;search 
+            (let ((find (icon-pop 120.0 30.0 "查找" "find.png" "C-f"))
+                  (replace (icon-pop 120.0 30.0 "替换" "replace.png" "C-r"))
+                )
+                (widget-add menu-search find)
+                (widget-add menu-search replace)
+            )
+             ;;tools 
+            (let ((cmd (icon-pop 120.0 30.0 "命令行" "shell.png" ""))
+                  (chat (icon-pop 120.0 30.0 "聊天" "chat.png" ""))
+                )
+                (widget-add menu-tool cmd)
+                (widget-add menu-tool chat)
+            )
+
+
+
             (widget-add menu-file menu-quit)
+            (widget-add menu-help menu-manual)
             (widget-add menu-help menu-about)
 
+       
             ;;set abount
-            (let ((info (edit 300.0 120.0 "scheme-lib 是一个scheme使用的库。目前支持android mac linux windows，其它平台在规划中。官方主页啦啦啦啦gagaga：http://scheme-lib.evilbinary.org/ QQ群：Lisp兴趣小组239401374 啊哈哈"))
+            (let ((info (edit %match-parent 120.0 "鸭子编辑器v1.0,群：Lisp兴趣小组239401374"))
                 (close (button 120.0 30.0 "关闭"))
                 )
             (widget-add about info)
@@ -83,7 +127,6 @@
             (widget-set-events
                 menu-about 'click
                 (lambda (w p type data)
-                    (printf "click abount\n")
                     (widget-set-attr about %visible #t)))
 
             (widget-set-events 

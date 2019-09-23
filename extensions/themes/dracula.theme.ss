@@ -30,6 +30,6 @@
         ;;(widget-set-attrs editor 'font "Roboto-Regular.ttf")
         (widget-set-attrs menu 'hover-background #xee3D3D3D)
         (widget-set-attrs menu 'background #xee3D3D3D)
-        (widget-set-attrs editor 'font-size 22.0)
+        (widget-set-attrs editor 'font-size 20.0)
         (widget-set-attrs editor 'font-line-height 1.2)
     )))

@@ -111,11 +111,12 @@
                     (if (= type %event-key)
                         (if (equal? 'enter  (get-default-key-map (vector-ref d 0)))
                             (begin
-                                ;;(printf "enter\n")
+                                (printf "enter\n")
                                 (hide-snippets)
-                                ;;(printf "focus-child ~a\n"  (widget-get-attr (widget-get-attrs (get-var 'editor.snippets) 'focus-child ) %text))
-                                (set-var 'editor.snippets.text 
-                                    (widget-get-attr (widget-get-attrs (get-var 'editor.snippets) 'focus-child ) %text))
+                                (printf "focus-child ~a\n"  (widget-get-attrs (get-var 'editor.snippets) 'focus-child ) )
+                                (if (not (null? (widget-get-attrs (get-var 'editor.snippets) 'focus-child )))
+                                    (set-var 'editor.snippets.text 
+                                        (widget-get-attr (widget-get-attrs (get-var 'editor.snippets) 'focus-child ) %text)))
                                 ;;(printf "visible=>~a\n" (widget-get-attr (get-var 'editor) %visible ))
                                 ;;(widget-layout-update (widget-get-root p))
                             )
@@ -254,6 +255,34 @@
             d
         )
     )
+
+)
+(module duck.menu (icon-pop )
+    (import (gui stb))
+    
+    (define (icon-pop w h text src shot-key)
+        (let ((it (pop w h text))
+            (icon '()))
+            (if (not (null? src))
+                (set! icon (load-texture (path-append (get-var 'resources.dir) src) )))
+            (widget-set-attrs it 'icon icon)
+            (widget-set-attrs it 'shot-key shot-key)
+            (widget-set-attrs it 'text-align 'left)
+            (widget-set-attrs it 'padding-left 40.0)
+            (widget-add-draw
+            it
+            (lambda (w p)
+            (let ((x (vector-ref w %gx))
+                (y (vector-ref w %gy)))
+                (if (null? (widget-get-attrs w 'icon))
+                    '()
+                    (begin 
+                        (if (string? shot-key)
+                            (draw-text (+  x 80.0) (+ y 2.0) shot-key))
+                        (draw-image (+ 10.0 x) (+ y 6.0) 18.0 18.0 (widget-get-attrs w 'icon)))))
+            ))
+            it
+            ))
 
 )
 
@@ -399,6 +428,7 @@
         (widget-set-attrs input 'background #xff20232c)
         (widget-set-attrs list-scroll 'background #xff20232c)
         (make-file-list t path)
+        (widget-set-status t  %status-active)
 
          (widget-set-events 
                 close 'click

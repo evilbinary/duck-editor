@@ -17,7 +17,9 @@
         (if (null? file-tree )
             (begin 
             (set! file-tree (icon-tree 260.0 200.0  (string-append "  " (path-last work-dir) )))
-            (set-var 'tree file-tree)))
+            (set-var 'tree file-tree)
+            (widget-set-status file-tree  %status-active)
+            ))
         (if (null? work-dir)
             (make-file-tree file-tree "../")
             (make-file-tree file-tree work-dir))
