@@ -428,7 +428,7 @@
         (widget-set-attrs input 'background #xff20232c)
         (widget-set-attrs list-scroll 'background #xff20232c)
         (make-file-list t path)
-        (widget-set-status t  %status-active)
+        (widget-set-attrs t  'expanded #t)
 
          (widget-set-events 
                 close 'click
