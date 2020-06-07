@@ -33,7 +33,7 @@
         (widget-add s0 file-tree)
         (widget-set-padding file-tree 40.0 20.0 20.0 20.0)
         
-        (if (file-exists? (path-append work-dir "duck-editor.ss"))
-            (widget-set-attr editor %text (readlines (path-append work-dir "duck-editor.ss") ) ))
+        (if (file-exists? (path-append work-dir "app.ss"))
+            (widget-set-attr editor %text (readlines (path-append work-dir "app.ss") ) ))
             
     )))

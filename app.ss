@@ -113,7 +113,7 @@
   ;;(window-set-fps-pos 750.0 0.0)
   ;;(window-set-fps-pos  0.0  0.0)
   ;;(window-set-wait-mode #f)
-  ;;(window-show-fps #t)
+  (window-show-fps #t)
   (process-args)
   ;;load res
   (init-res)
